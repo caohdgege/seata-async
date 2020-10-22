@@ -18,11 +18,11 @@ import java.util.concurrent.Future;
 @Component
 public class SeataAsyncUtil {
     private static final Logger logger = LoggerFactory.getLogger(SeataAsyncUtil.class);
+    private ExecutorService executor;
 
-    @Value("${seata.async.thread-num:512}")
-    private int THREAD_NUM;
-
-    private ExecutorService executor = Executors.newFixedThreadPool(THREAD_NUM);
+    public SeataAsyncUtil(@Value("${seata.async.thread-num:512}") int threadNum) {
+        executor = Executors.newFixedThreadPool(threadNum);
+    }
 
     public <T> SeataAsyncCallInfo<T> async(AsyncRevFunction<T> func) {
         String xid = RootContext.getXID();
