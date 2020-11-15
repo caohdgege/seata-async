@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 
 /**
@@ -47,6 +48,11 @@ public class SeataAsyncAspect {
             }
 
             // 把异常抛出去，触发回滚
+            // 如果是ExecutionException
+            // 代表着这是在future里面抛出的异常，应该把原始异常抛出去
+            if (e instanceof ExecutionException) {
+                throw e.getCause();
+            }
             throw e;
         } finally {
             // 无论滚没滚，都要clear一下
