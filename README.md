@@ -40,7 +40,7 @@ public int batchInsert(int times, int size) throws Exception {
     // 旧写法
     // int counter = 0;
     // for (int i = 0; i < times; i++) {
-    //     seataAsyncUtil.async(() -> userMapper.batchInsert(buildRandomUsers(size)));
+    //     userMapper.batchInsert(buildRandomUsers(size));
     // }
     // return counter;
 

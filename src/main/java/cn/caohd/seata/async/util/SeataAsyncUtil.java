@@ -33,7 +33,13 @@ public class SeataAsyncUtil {
                 RootContext.bind(xid);
             }
 
-            return func.apply();
+            try {
+                return func.apply();
+            } finally {
+                if (null != RootContext.getXID()) {
+                    RootContext.unbind();
+                }
+            }
         });
 
         SeataAsyncCallInfo<T> callInfo = new SeataAsyncCallInfo<>(future, xid);
@@ -49,10 +55,15 @@ public class SeataAsyncUtil {
                 logger.debug("xid is : {}", xid);
                 RootContext.bind(xid);
             }
+            try {
+                func.apply();
 
-            func.apply();
-
-            return true;
+                return true;
+            } finally {
+                if (null != RootContext.getXID()) {
+                    RootContext.unbind();
+                }
+            }
         });
 
         SeataAsyncCallInfo<Boolean> callInfo = new SeataAsyncCallInfo<>(future, xid);
