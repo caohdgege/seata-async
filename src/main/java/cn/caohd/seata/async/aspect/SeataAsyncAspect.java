@@ -21,7 +21,13 @@ import java.util.concurrent.ExecutionException;
 public class SeataAsyncAspect {
     private static final Logger logger = LoggerFactory.getLogger(SeataAsyncAspect.class);
 
-    @Around("@annotation(io.seata.spring.annotation.GlobalTransactional)")
+    @Around("@annotation(io.seata.spring.annotation.GlobalTransactional) " +
+            "   || @annotation(org.springframework.web.bind.annotation.GetMapping) " +
+            "   || @annotation(org.springframework.web.bind.annotation.PostMapping)" +
+            "   || @annotation(org.springframework.web.bind.annotation.PutMapping)" +
+            "   || @annotation(org.springframework.web.bind.annotation.RequestMapping)" +
+            "   || @annotation(org.springframework.web.bind.annotation.DeleteMapping)" +
+            "   || @annotation(org.springframework.web.bind.annotation.PatchMapping)")
     public Object aroundLogCalls(ProceedingJoinPoint pjp) throws Throwable {
         try {
             Object o = pjp.proceed();
@@ -37,6 +43,7 @@ public class SeataAsyncAspect {
         } catch (Throwable e){
             // 如果业务逻辑上有异常，或者get的时候有异常，
             // 需要二次进行get，确保执行完成，并且这里在get的时候有异常，打个日志就忽略
+            // todo 这里是否需要二次等待 ?
             List<SeataAsyncCallInfo> callInfos = new ArrayList<>(SeataAysncCallContext.getAsyncInfos());
             for (SeataAsyncCallInfo callInfo : callInfos) {
                 try {

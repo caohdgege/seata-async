@@ -18,7 +18,7 @@ import java.util.concurrent.Future;
 @Component
 public class SeataAsyncUtil {
     private static final Logger logger = LoggerFactory.getLogger(SeataAsyncUtil.class);
-    private ExecutorService executor;
+    private final ExecutorService executor;
 
     public SeataAsyncUtil(@Value("${seata.async.thread-num:512}") int threadNum) {
         executor = Executors.newFixedThreadPool(threadNum);
@@ -47,7 +47,7 @@ public class SeataAsyncUtil {
         return callInfo;
     }
 
-    public <T> SeataAsyncCallInfo asyncNotReturnVal(AsyncNoRevFunction<T> func) {
+    public <T> SeataAsyncCallInfo<Boolean> asyncNotReturnVal(AsyncNoRevFunction<T> func) {
         String xid = RootContext.getXID();
 
         Future<Boolean> future = executor.submit(() -> {
