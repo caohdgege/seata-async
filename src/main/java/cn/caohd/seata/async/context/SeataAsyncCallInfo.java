@@ -12,7 +12,7 @@ public class SeataAsyncCallInfo<T> {
     /**
      * future
      */
-    private Future<T> future;
+    private final Future<T> future;
     /**
      * 分布式事务的xid
      */
