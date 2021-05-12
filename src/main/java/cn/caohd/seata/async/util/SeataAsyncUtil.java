@@ -4,6 +4,7 @@ import cn.caohd.seata.async.context.SeataAysncCallContext;
 import cn.caohd.seata.async.context.SeataAsyncCallInfo;
 import cn.caohd.seata.async.functional.AsyncNoRevFunction;
 import cn.caohd.seata.async.functional.AsyncRevFunction;
+import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import io.seata.core.context.RootContext;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
@@ -47,6 +48,7 @@ public class SeataAsyncUtil {
         return callInfo;
     }
 
+    @CanIgnoreReturnValue
     public <T> SeataAsyncCallInfo<Boolean> asyncNotReturnVal(AsyncNoRevFunction<T> func) {
         String xid = RootContext.getXID();
 

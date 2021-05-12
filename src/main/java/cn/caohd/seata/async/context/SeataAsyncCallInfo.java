@@ -85,6 +85,7 @@ public class SeataAsyncCallInfo<T> {
         return ex;
     }
 
+    @Nullable
     public String getXid() {
         return xid;
     }
