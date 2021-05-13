@@ -60,8 +60,8 @@ public int batchInsert(int times, int size) throws Exception {
 
 ### 注意事项
 1. 这个依赖只是用来解决部分问题，不是解决全部问题
-2. 这个仅用于TM端，不要用来RM端(其实要实现RM端的话，可以仿照SeataAsyncAspect，写一个aspect，很简单的)
-3. 不要进行事务嵌套，不支持事务嵌套
+2. 支持SpringBoot下的发起端 以及 被远程调用的SpringBoot服务
+3. 不要进行并发嵌套，不支持并发嵌套
 4. 确保异步的多个操作之间是没有先后顺序的
 
 ### 应用场景
