@@ -1,7 +1,7 @@
 package cn.caohd.seata.async.aspect;
 
 import cn.caohd.seata.async.context.SeataAsyncCallInfo;
-import cn.caohd.seata.async.context.SeataAysncCallContext;
+import cn.caohd.seata.async.context.SeataAsyncCallContext;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
 import org.springframework.stereotype.Component;
@@ -30,7 +30,7 @@ public class SeataAsyncAspect {
             Object o = pjp.proceed();
 
             // 在业务逻辑执行完了之后，在这里需要堵塞等待远端执行完成
-            List<SeataAsyncCallInfo> callInfos = new ArrayList<>(SeataAysncCallContext.getAsyncInfos());
+            List<SeataAsyncCallInfo> callInfos = new ArrayList<>(SeataAsyncCallContext.getAsyncInfos());
 
             for (SeataAsyncCallInfo callInfo : callInfos) {
                 callInfo.get();
@@ -47,7 +47,7 @@ public class SeataAsyncAspect {
             throw e;
         } finally {
             // 无论滚没滚，都要clear一下
-            SeataAysncCallContext.clear();
+            SeataAsyncCallContext.clear();
         }
     }
 }

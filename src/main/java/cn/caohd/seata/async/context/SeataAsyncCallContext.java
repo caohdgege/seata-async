@@ -7,10 +7,10 @@ import java.util.concurrent.LinkedBlockingQueue;
  * 调用的上下问
  */
 @SuppressWarnings("rawtypes")
-public class SeataAysncCallContext {
+public class SeataAsyncCallContext {
     /**
      * 异步的消费队列
-     * 注意，这里是TheadLocal，所以的话，不要尝试在异步线程里面获取这个东西
+     * 注意，这里是ThreadLocal，所以的话，不要尝试在异步线程里面获取这个东西
      */
     private static final ThreadLocal<Queue<SeataAsyncCallInfo>> calls = ThreadLocal.withInitial(LinkedBlockingQueue::new);
 

@@ -1,6 +1,6 @@
 package cn.caohd.seata.async.util;
 
-import cn.caohd.seata.async.context.SeataAysncCallContext;
+import cn.caohd.seata.async.context.SeataAsyncCallContext;
 import cn.caohd.seata.async.context.SeataAsyncCallInfo;
 import cn.caohd.seata.async.functional.AsyncNoRevFunction;
 import cn.caohd.seata.async.functional.AsyncRevFunction;
@@ -44,7 +44,7 @@ public class SeataAsyncUtil {
         });
 
         SeataAsyncCallInfo<T> callInfo = new SeataAsyncCallInfo<>(future, xid);
-        SeataAysncCallContext.addAsyncInfo(callInfo);
+        SeataAsyncCallContext.addAsyncInfo(callInfo);
         return callInfo;
     }
 
@@ -69,7 +69,7 @@ public class SeataAsyncUtil {
         });
 
         SeataAsyncCallInfo<Boolean> callInfo = new SeataAsyncCallInfo<>(future, xid);
-        SeataAysncCallContext.addAsyncInfo(callInfo);
+        SeataAsyncCallContext.addAsyncInfo(callInfo);
         return callInfo;
     }
 }

@@ -10,9 +10,9 @@ import static org.junit.Assert.assertEquals;
 public class SeataAsyncCallContextTest {
     @Test
     public void test() {
-        SeataAysncCallContext.addAsyncInfo(new SeataAsyncCallInfo(null, null));
-        assertEquals(SeataAysncCallContext.getAsyncInfos().size(), 1);
-        SeataAysncCallContext.clear();
-        assertEquals(SeataAysncCallContext.getAsyncInfos().size(), 0);
+        SeataAsyncCallContext.addAsyncInfo(new SeataAsyncCallInfo(null, null));
+        assertEquals(SeataAsyncCallContext.getAsyncInfos().size(), 1);
+        SeataAsyncCallContext.clear();
+        assertEquals(SeataAsyncCallContext.getAsyncInfos().size(), 0);
     }
 }
